@@ -10,7 +10,7 @@ const colors = [
 ]
 
 const App = () => {
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState('#FF0000')
     const onChange = color => {
         setValue(color)
     }

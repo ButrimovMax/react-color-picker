@@ -35,8 +35,7 @@ const ColorPicker = ({colors, onChange, value}) => {
 
     useEffect(()=>{
         document.addEventListener('click', e=>{
-            const clickInside = sliderDropdown.current.contains(e.target)
-                || listDropdown.current.contains(e.target)
+            const clickInside = sliderDropdown.current.contains(e.target) || listDropdown.current.contains(e.target)
                 || sliderDropdownBtn.current.contains(e.target)
                 || listDropdownBtn.current.contains(e.target)
             if(!clickInside){
@@ -143,37 +142,40 @@ const ColorPicker = ({colors, onChange, value}) => {
                 className={openSlider ? 'slider-dropdown show' : "slider-dropdown"}
                 ref={sliderDropdown}>
                 <div className="slide-container">
-                    <span>R</span>
+                    <span className='slider-label'>R</span>
                     <input
                         type="range"
-                        min="1"
+                        min="0"
                         max="255"
                         value={redSlider}
                         onChange={(e)=>handleSliderChange(e, setRedSlider)}
-                        className="slider" />
+                        className="slider red" />
                 </div>
                 <div className="slide-container">
-                    <span>G</span>
+                    <span className='slider-label'>G</span>
                     <input
                         type="range"
-                        min="1"
+                        min="0"
                         max="255"
                         value={greenSlider}
                         onChange={(e)=>handleSliderChange(e, setGreenSlider)}
-                        className="slider" />
+                        className="slider green" />
                 </div>
                 <div className="slide-container">
-                    <span>B</span>
+                    <span className='slider-label'>B</span>
                     <input
                         type="range"
-                        min="1"
+                        min="0"
                         max="255"
                         value={blueSlider}
                         onChange={(e)=>handleSliderChange(e, setBlueSlider)}
-                        className="slider" />
+                        className="slider blue" />
                 </div>
-                <button onClick={onCancel}>cancel</button>
-                <button onClick={onOk}>ok</button>
+                <div className='slider-btn-wrapper'>
+                    <button className='btn btn-cancel' onClick={onCancel}>cancel</button>
+                    <button className='btn btn-ok' onClick={onOk}>ok</button>
+                </div>
+
             </div>
             <ul
                 ref={listDropdown}
