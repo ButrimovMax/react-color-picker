@@ -221,7 +221,9 @@
 }
 
 .slider-dropdown-wrapper, .color-picker-dropdown-wrapper{
-    .open .dropdown-backdrop{
-        display: block;
+    &.open{
+        .dropdown-backdrop{
+            display: block;
+        }
     }
 }
