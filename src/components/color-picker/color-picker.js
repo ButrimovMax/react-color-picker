@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import './color-picker.css'
 
 const ColorPicker = ({colors, onChange, value}) => {
@@ -28,23 +28,17 @@ const ColorPicker = ({colors, onChange, value}) => {
         setSelectedColor(value)
     }, [value, sliderValues])
 
-    const sliderDropdownBtn = useRef(null)
-    const listDropdownBtn = useRef(null)
-    const sliderDropdown = useRef(null)
-    const listDropdown = useRef(null)
+    const handleBackdropClick = e => {
+        if(e.target.classList.contains('dropdown-backdrop')){
+            setOpenSlider(false)
+            setOpenDropdown(false)
+        }
+    }
 
     useEffect(()=>{
-        document.addEventListener('click', e=>{
-            const clickInside = sliderDropdown.current.contains(e.target) || listDropdown.current.contains(e.target)
-                || sliderDropdownBtn.current.contains(e.target)
-                || listDropdownBtn.current.contains(e.target)
-            if(!clickInside){
-                setOpenDropdown(false)
-                setOpenSlider(false)
-            }
-        })
+        document.addEventListener('click', handleBackdropClick)
         return ()=>{
-            document.removeEventListener('click', ()=>{})
+            document.removeEventListener('click', handleBackdropClick)
         }
     }, [])
 
@@ -127,61 +121,66 @@ const ColorPicker = ({colors, onChange, value}) => {
     return (
         <>
             <div
-                ref={sliderDropdownBtn}
                 className='color-picker-rgb'
                 onClick={toggleSlider}>
                 <div style={{backgroundColor: selectedColor}}>
                 </div>
             </div>
+            <div className={openSlider ? 'slider-dropdown-wrapper open': 'slider-dropdown-wrapper'}>
+                <div className='dropdown-backdrop'>
+                </div>
+                <div
+                    className="slider-dropdown">
+                    <div className="slide-container">
+                        <span className='slider-label'>R</span>
+                        <input
+                            type="range"
+                            min="0"
+                            max="255"
+                            value={redSlider}
+                            onChange={(e)=>handleSliderChange(e, setRedSlider)}
+                            className="slider red" />
+                    </div>
+                    <div className="slide-container">
+                        <span className='slider-label'>G</span>
+                        <input
+                            type="range"
+                            min="0"
+                            max="255"
+                            value={greenSlider}
+                            onChange={(e)=>handleSliderChange(e, setGreenSlider)}
+                            className="slider green" />
+                    </div>
+                    <div className="slide-container">
+                        <span className='slider-label'>B</span>
+                        <input
+                            type="range"
+                            min="0"
+                            max="255"
+                            value={blueSlider}
+                            onChange={(e)=>handleSliderChange(e, setBlueSlider)}
+                            className="slider blue" />
+                    </div>
+                    <div className='slider-btn-wrapper'>
+                        <button className='btn btn-cancel' onClick={onCancel}>cancel</button>
+                        <button className='btn btn-ok' onClick={onOk}>ok</button>
+                    </div>
+
+                </div>
+            </div>
             <div
-                ref={listDropdownBtn}
                 className='color-picker-dropdown-btn'
                 onClick={toggleDropdown}>
             </div>
-            <div
-                className={openSlider ? 'slider-dropdown show' : "slider-dropdown"}
-                ref={sliderDropdown}>
-                <div className="slide-container">
-                    <span className='slider-label'>R</span>
-                    <input
-                        type="range"
-                        min="0"
-                        max="255"
-                        value={redSlider}
-                        onChange={(e)=>handleSliderChange(e, setRedSlider)}
-                        className="slider red" />
+            <div className={openDropdown ? 'color-picker-dropdown-wrapper open' : 'color-picker-dropdown-wrapper'} >
+                <div className='dropdown-backdrop'>
                 </div>
-                <div className="slide-container">
-                    <span className='slider-label'>G</span>
-                    <input
-                        type="range"
-                        min="0"
-                        max="255"
-                        value={greenSlider}
-                        onChange={(e)=>handleSliderChange(e, setGreenSlider)}
-                        className="slider green" />
-                </div>
-                <div className="slide-container">
-                    <span className='slider-label'>B</span>
-                    <input
-                        type="range"
-                        min="0"
-                        max="255"
-                        value={blueSlider}
-                        onChange={(e)=>handleSliderChange(e, setBlueSlider)}
-                        className="slider blue" />
-                </div>
-                <div className='slider-btn-wrapper'>
-                    <button className='btn btn-cancel' onClick={onCancel}>cancel</button>
-                    <button className='btn btn-ok' onClick={onOk}>ok</button>
-                </div>
-
+                <ul
+                    className='color-picker-dropdown'>
+                    {dropdownElements}
+                </ul>
             </div>
-            <ul
-                ref={listDropdown}
-                className={openDropdown ? 'color-picker-dropdown show' : "color-picker-dropdown"}>
-                {dropdownElements}
-            </ul>
+
         </>
     )
 }
