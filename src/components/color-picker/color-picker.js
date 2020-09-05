@@ -28,11 +28,9 @@ const ColorPicker = ({colors, onChange, value}) => {
         setSelectedColor(value)
     }, [value, sliderValues])
 
-    const handleBackdropClick = e => {
-        if(e.target.classList.contains('dropdown-backdrop')){
-            setOpenSlider(false)
-            setOpenDropdown(false)
-        }
+    const handleBackdropClick = () => {
+        setOpenSlider(false)
+        setOpenDropdown(false)
     }
 
     useEffect(()=>{
@@ -117,7 +115,12 @@ const ColorPicker = ({colors, onChange, value}) => {
             </li>
         )
     })
-
+    const backdropElement = (
+        <div
+            className='dropdown-backdrop'
+            onClick={handleBackdropClick}>
+        </div>
+    )
     return (
         <>
             <div
@@ -127,8 +130,7 @@ const ColorPicker = ({colors, onChange, value}) => {
                 </div>
             </div>
             <div className={openSlider ? 'slider-dropdown-wrapper open': 'slider-dropdown-wrapper'}>
-                <div className='dropdown-backdrop'>
-                </div>
+                {backdropElement}
                 <div
                     className="slider-dropdown">
                     <div className="slide-container">
@@ -173,8 +175,7 @@ const ColorPicker = ({colors, onChange, value}) => {
                 onClick={toggleDropdown}>
             </div>
             <div className={openDropdown ? 'color-picker-dropdown-wrapper open' : 'color-picker-dropdown-wrapper'} >
-                <div className='dropdown-backdrop'>
-                </div>
+                {backdropElement}
                 <ul
                     className='color-picker-dropdown'>
                     {dropdownElements}
