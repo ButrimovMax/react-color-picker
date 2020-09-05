@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import ColorPicker from "../color-picker";
-import './app.css'
+import './app.scss'
 
 const colors = [
     {label: 'RED', color: '#FF0000'},

@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react'
-import './color-picker.css'
+import './color-picker.scss'
 
 const ColorPicker = ({colors, onChange, value}) => {
     const [openDropdown, setOpenDropdown] = useState(false)
@@ -32,13 +32,6 @@ const ColorPicker = ({colors, onChange, value}) => {
         setOpenSlider(false)
         setOpenDropdown(false)
     }
-
-    useEffect(()=>{
-        document.addEventListener('click', handleBackdropClick)
-        return ()=>{
-            document.removeEventListener('click', handleBackdropClick)
-        }
-    }, [])
 
 
     const hexToRgb = (hex) => {
@@ -81,7 +74,7 @@ const ColorPicker = ({colors, onChange, value}) => {
     }
 
     const handleSliderChange = (e, slider) => {
-        slider(+e.target.value)
+        slider(Number(e.target.value))
     }
 
     const onOk = () => {
@@ -91,7 +84,7 @@ const ColorPicker = ({colors, onChange, value}) => {
 
     const onCancel = () => {
         setSelectedColor(value)
-        sliderValues(value)
+        sliderValues()
         toggleSlider()
     }
 
