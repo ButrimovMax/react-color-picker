@@ -127,7 +127,11 @@ const ColorPicker = ({colors, onChange, value}) => {
 
 
     return (
-        <>
+        <div className="color-picker-wrapper">
+            <div
+                className="color-picker-input">
+                <span>{value}</span>
+            </div>
             <div
                 className='color-picker-rgb'
                 onClick={()=>toggleDropdown('colorSlider')}>
@@ -186,8 +190,7 @@ const ColorPicker = ({colors, onChange, value}) => {
                     {dropdownElements}
                 </ul>
             </div>
-
-        </>
+        </div>
     )
 }
 

@@ -23,15 +23,9 @@ const App = () => {
 
     return (
         <div className='app'>
-            <div className="color-picker-wrapper">
-                <div
-                    className="color-picker-input">
-                    <span>{value}</span>
-                </div>
-                <ColorPicker colors={colors} value={value} onChange={color => onChangeColor(color)}/>
-            </div>
-
+            <ColorPicker colors={colors} value={value} onChange={color => onChangeColor(color)}/>
         </div>
+
     )
 }
 
