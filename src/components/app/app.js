@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ColorPicker from "../color-picker";
 import './app.scss'
 
@@ -9,20 +9,26 @@ const colors = [
     {label: 'BLUE', color: '#0000FF'},
 ]
 
+
+
 const App = () => {
-    const [value, setValue] = useState('#FF0000')
-    const onChange = color => {
-        setValue(color)
-    }
+    const initialValue = localStorage.getItem('color') || '#FF0000'
+    const [value, setValue] = useState(initialValue)
+    const onChangeColor = color => setValue(color)
+
+
+    useEffect(()=>{
+        localStorage.setItem('color', value)
+    }, [value])
 
     return (
         <div className='app'>
             <div className="color-picker-wrapper">
                 <div
                     className="color-picker-input">
-                    {value}
+                    <span>{value}</span>
                 </div>
-                <ColorPicker colors={colors} value={value} onChange={color => onChange(color)}/>
+                <ColorPicker colors={colors} value={value} onChange={color => onChangeColor(color)}/>
             </div>
 
         </div>
