@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import ColorPicker from "../color-picker/color-picker";
+import ColorPicker from "./components/colorPicker/colorPicker";
 import './app.scss'
 
 const colors = [

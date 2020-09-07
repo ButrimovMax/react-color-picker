@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react'
-import './color-picker.scss'
+import './colorPicker.scss'
 
 const ColorPicker = ({colors, onChange, value}) => {
     const [openDropdown, setOpenDropdown] = useState({
@@ -187,7 +187,7 @@ const ColorPicker = ({colors, onChange, value}) => {
                 className='color-picker-dropdown-btn'
                 onClick={()=>toggleDropdown('colorList')}>
             </div>
-            <div className={'color-picker-dropdown-wrapper'}>
+            <div className={'colorPicker-dropdown-wrapper'}>
                 {colorList ? (
                     <>
                         {backdropElement}
