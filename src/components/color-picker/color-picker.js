@@ -102,7 +102,6 @@ const ColorPicker = ({colors, onChange, value}) => {
     }
 
     const dropdownElements = () => colors.map(({label, color}, index) => {
-        console.log('123')
         return (
             <li
                 key={index}
