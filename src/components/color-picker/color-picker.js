@@ -101,7 +101,8 @@ const ColorPicker = ({colors, onChange, value}) => {
         toggleDropdown('colorList')
     }
 
-    const dropdownElements = colors.map(({label, color}, index) => {
+    const dropdownElements = () => colors.map(({label, color}, index) => {
+        console.log('123')
         return (
             <li
                 key={index}
@@ -138,57 +139,62 @@ const ColorPicker = ({colors, onChange, value}) => {
                 <div style={{backgroundColor: selectedColor}}>
                 </div>
             </div>
-            <div className={colorSlider ? 'slider-dropdown-wrapper open': 'slider-dropdown-wrapper'}>
-                {backdropElement}
-                <div
-                    className="slider-dropdown">
-                    <div className="slide-container">
-                        <span className='slider-label'>R</span>
-                        <input
-                            type="range"
-                            min="0"
-                            max="255"
-                            value={red}
-                            onChange={(e)=>handleSliderChange(e, 'red')}
-                            className="slider red" />
-                    </div>
-                    <div className="slide-container">
-                        <span className='slider-label'>G</span>
-                        <input
-                            type="range"
-                            min="0"
-                            max="255"
-                            value={green}
-                            onChange={(e)=>handleSliderChange(e, 'green')}
-                            className="slider green" />
-                    </div>
-                    <div className="slide-container">
-                        <span className='slider-label'>B</span>
-                        <input
-                            type="range"
-                            min="0"
-                            max="255"
-                            value={blue}
-                            onChange={(e)=>handleSliderChange(e, 'blue')}
-                            className="slider blue" />
-                    </div>
-                    <div className='slider-btn-wrapper'>
-                        <button className='btn btn-cancel' onClick={onCancel}>cancel</button>
-                        <button className='btn btn-ok' onClick={onOk}>ok</button>
-                    </div>
+            <div className={'slider-dropdown-wrapper'}>
+                {colorSlider ? (
+                    <>
+                        {backdropElement}
+                        <div
+                            className="slider-dropdown">
+                            <div className="slide-container">
+                                <span className='slider-label'>R</span>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="255"
+                                    value={red}
+                                    onChange={(e)=>handleSliderChange(e, 'red')}
+                                    className="slider red" />
+                            </div>
+                            <div className="slide-container">
+                                <span className='slider-label'>G</span>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="255"
+                                    value={green}
+                                    onChange={(e)=>handleSliderChange(e, 'green')}
+                                    className="slider green" />
+                            </div>
+                            <div className="slide-container">
+                                <span className='slider-label'>B</span>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="255"
+                                    value={blue}
+                                    onChange={(e)=>handleSliderChange(e, 'blue')}
+                                    className="slider blue" />
+                            </div>
+                            <div className='slider-btn-wrapper'>
+                                <button className='btn btn-cancel' onClick={onCancel}>cancel</button>
+                                <button className='btn btn-ok' onClick={onOk}>ok</button>
+                            </div>
 
-                </div>
+                        </div>
+                    </>
+                ) : null}
             </div>
             <div
                 className='color-picker-dropdown-btn'
                 onClick={()=>toggleDropdown('colorList')}>
             </div>
-            <div className={colorList ? 'color-picker-dropdown-wrapper open' : 'color-picker-dropdown-wrapper'} >
-                {backdropElement}
-                <ul
-                    className='color-picker-dropdown'>
-                    {dropdownElements}
-                </ul>
+            <div className={'color-picker-dropdown-wrapper'}>
+                {colorList ? (
+                    <>
+                        {backdropElement}
+                        <ul className='color-picker-dropdown'>{dropdownElements()}</ul>
+                    </>
+                ) : null}
             </div>
         </div>
     )
